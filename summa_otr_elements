@@ -1,0 +1,43 @@
+def sum_negative_between_min_max(arr):
+    if len(arr) < 2:
+        return 0
+    idx_min = arr.index(min(arr))
+    idx_max = arr.index(max(arr))
+    left = min(idx_min, idx_max)
+    right = max(idx_min, idx_max)
+    if right - left <= 1:
+        return 0
+    total = 0
+    for i in range(left + 1, right):
+        if arr[i] < 0:
+            total += arr[i]
+    return total
+
+def main():
+    try:
+        N = int(input("Введите размерность массива N: "))
+        if N <= 0:
+            print("Размерность должна быть положительным числом.")
+            return
+    except ValueError:
+        print("Ошибка: введите целое число.")
+        return
+
+    while True:
+        print("Введите элементы массива через пробел:")
+        elements_str = input().strip()
+        parts = elements_str.split()
+        if len(parts) != N:
+            print(f"Ошибка: введено {len(parts)} элементов, а ожидалось {N}. Попробуйте снова.")
+            continue
+        try:
+            elements = [float(x) for x in parts]
+            break
+        except ValueError:
+            print("Ошибка: все элементы должны быть числами. Попробуйте снова.")
+    
+    result = sum_negative_between_min_max(elements)
+    print(f"Сумма отрицательных элементов между min и max: {result}")
+
+if __name__ == "__main__":
+    main()
